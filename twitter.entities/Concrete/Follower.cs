@@ -1,6 +1,8 @@
-﻿namespace twitter.entities.Concrete
+﻿using twitter.entities.Interfaces;
+
+namespace twitter.entities.Concrete
 {
-    public class Follower
+    public class Follower : ITable
     {
         public long Id { get; set; }
         public DateTime RecordTime { get; set; }

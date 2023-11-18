@@ -1,6 +1,8 @@
-﻿namespace twitter.entities.Concrete
+﻿using twitter.entities.Interfaces;
+
+namespace twitter.entities.Concrete
 {
-    public class TypeMessageStatus
+    public class TypeMessageStatus : ITable
     {
         public int Id { get; set; }
         public string? Name { get; set; }

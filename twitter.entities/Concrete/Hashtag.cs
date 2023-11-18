@@ -1,8 +1,11 @@
-﻿namespace twitter.entities.Concrete
+﻿using twitter.entities.Interfaces;
+
+namespace twitter.entities.Concrete
 {
-    public class Hashtag
+    public class Hashtag : ITable
     {
         public long Id { get; set; }
         public string? Name { get; set; }
+        public DateTime RecordTime { get; set; }
     }
 }

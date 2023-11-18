@@ -1,6 +1,8 @@
-﻿namespace twitter.entities.Concrete
+﻿using twitter.entities.Interfaces;
+
+namespace twitter.entities.Concrete
 {
-    public class TweetHashtag
+    public class TweetHashtag : ITable
     {
         public long Id { get; set; }
         public long refTweet { get; set; }

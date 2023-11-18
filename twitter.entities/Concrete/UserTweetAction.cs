@@ -1,6 +1,8 @@
-﻿namespace twitter.entities.Concrete
+﻿using twitter.entities.Interfaces;
+
+namespace twitter.entities.Concrete
 {
-    public class UserTweetAction
+    public class UserTweetAction : ITable
     {
         public long Id { get; set; }
         public long refUser { get; set; }
