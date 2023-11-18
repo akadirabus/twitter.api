@@ -6,8 +6,7 @@ namespace twitter.entities.Concrete
     {
         public long Id { get; set; }
         public DateTime RecordTime { get; set; }
-        public long refUser { get; set; }
-        public int refTweet{ get; set; }
         public string? Content { get; set; }
+        public List<TweetHashtag>? TweetHashtags { get; set; }
     }
 }

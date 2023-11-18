@@ -10,8 +10,6 @@ namespace twitter.dataaccess.Concrete.EntityFrameworkCore.Mapping
         {
             builder.HasKey(I => I.Id);
             builder.Property(I => I.Id).UseIdentityColumn(1, 1);
-
-            builder.HasIndex(I => new { I.refUser, I.refTweet, I.refAction });
         }
     }
 }
