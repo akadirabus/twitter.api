@@ -10,16 +10,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["twitter-api.csproj", "."]
-RUN dotnet restore "./twitter-api.csproj"
+COPY ["twitter.api.csproj", "."]
+RUN dotnet restore "./twitter.api.csproj"
 COPY . .
 WORKDIR "/src/."
-RUN dotnet build "twitter-api.csproj" -c Release -o /app/build
+RUN dotnet build "twitter.api.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "twitter-api.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "twitter.api.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "twitter-api.dll"]
+ENTRYPOINT ["dotnet", "twitter.api.dll"]
