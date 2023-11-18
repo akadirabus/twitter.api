@@ -1,4 +1,4 @@
-﻿namespace twitter_api.Models
+﻿namespace twitter.entities.Concrete
 {
     public class Follow
     {
