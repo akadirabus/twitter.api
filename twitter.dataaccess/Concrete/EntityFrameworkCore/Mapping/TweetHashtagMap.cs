@@ -9,7 +9,6 @@ namespace twitter.dataaccess.Concrete.EntityFrameworkCore.Mapping
         public void Configure(EntityTypeBuilder<TweetHashtag> builder)
         {
             builder.HasKey(I => I.Id);
-
         }
     }
 }

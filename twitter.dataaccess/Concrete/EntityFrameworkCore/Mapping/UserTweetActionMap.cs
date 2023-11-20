@@ -10,6 +10,8 @@ namespace twitter.dataaccess.Concrete.EntityFrameworkCore.Mapping
         {
             builder.HasKey(I => I.Id);
             builder.Property(I => I.Id).UseIdentityColumn(1, 1);
+
+            builder.HasOne<ActionType>(I => I.Action).WithOne(I => I.UserTweetAction).HasForeignKey<ActionType>(I => I.UserTweetActionId);
         }
     }
 }

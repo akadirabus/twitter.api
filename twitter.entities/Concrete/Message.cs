@@ -7,6 +7,11 @@ namespace twitter.entities.Concrete
         public long Id { get; set; }
         public DateTime RecordTime { get; set; }
         public string? Content { get; set; }
-        public TypeMessageStatus? TypeMessageStatus { get; set; }
+
+        public int MessageTypeId { get; set; }
+        public MessageType? MessageType { get; set; }
+
+        public long UserId { get; set; }
+        public User? User { get; set; }
     }
 }

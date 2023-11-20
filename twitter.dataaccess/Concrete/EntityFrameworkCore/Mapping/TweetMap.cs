@@ -12,6 +12,10 @@ namespace twitter.dataaccess.Concrete.EntityFrameworkCore.Mapping
             builder.Property(I => I.Id).UseIdentityColumn(1, 1);
             builder.Property(I => I.RecordTime).HasDefaultValue(DateTime.Now);
             builder.Property(I => I.Content).HasMaxLength(1000).IsRequired();
+
+            builder.HasMany(I => I.TweetHashtags).WithOne(I => I.Tweet).HasForeignKey(I => I.TweetId);
+            builder.HasOne(I => I.TweetType).WithOne(I => I.Tweet).HasForeignKey<TweetType>(I => I.TweetId);
+            builder.HasMany(I => I.UserTweetActions).WithOne(I => I.Tweet).HasForeignKey(I => I.TweetId);
         }
     }
 }

@@ -10,8 +10,10 @@ namespace twitter.dataaccess.Concrete.EntityFrameworkCore.Mapping
         {
             builder.HasKey(I => I.Id);
             builder.Property(I => I.Id).UseIdentityColumn(1, 1);
-            builder.Property(I => I.RecordTime).HasDefaultValue(DateTime.Now);
+            builder.Property(I => I.RecordTime).HasColumnType("datetime").HasDefaultValue(DateTime.Now);
             builder.Property(I => I.Name).HasMaxLength(100);
+
+            builder.HasMany(I => I.TweetHashtags).WithOne(I => I.Hashtag).HasForeignKey(I => I.HasttagId);
         }
     }
 }

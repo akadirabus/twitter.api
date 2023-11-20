@@ -4,9 +4,9 @@ using twitter.entities.Concrete;
 
 namespace twitter.dataaccess.Concrete.EntityFrameworkCore.Mapping
 {
-    public class TypeActionMap : IEntityTypeConfiguration<TypeAction>
+    public class MessageTypeMap : IEntityTypeConfiguration<MessageType>
     {
-        public void Configure(EntityTypeBuilder<TypeAction> builder)
+        public void Configure(EntityTypeBuilder<MessageType> builder)
         {
             builder.HasKey(I => I.Id);
             builder.Property(I => I.Name).HasMaxLength(100);

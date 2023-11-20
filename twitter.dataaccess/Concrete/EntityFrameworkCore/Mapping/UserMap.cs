@@ -14,6 +14,12 @@ namespace twitter.dataaccess.Concrete.EntityFrameworkCore.Mapping
             builder.Property(I => I.UserName).HasMaxLength(140).IsRequired();
             builder.Property(I => I.NameSurname).HasMaxLength(140).IsRequired();
             builder.Property(I => I.PersonelInformation).HasMaxLength(255);
+            builder.Property(I => I.Location).HasMaxLength(255);
+
+            builder.HasMany(I => I.Messages).WithOne(I => I.User).HasForeignKey(I => I.UserId);
+            builder.HasMany(I => I.Tweets).WithOne(I => I.User).HasForeignKey(I => I.UserId);
+            builder.HasMany(I => I.Notifications).WithOne(I => I.User).HasForeignKey(I => I.UserId);
+            builder.HasMany(I => I.UserTweetActions).WithOne(I => I.User).HasForeignKey(I => I.UserId);
         }
     }
 }

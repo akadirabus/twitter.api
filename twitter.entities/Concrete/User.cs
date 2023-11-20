@@ -17,5 +17,6 @@ namespace twitter.entities.Concrete
         public List<Tweet>? Tweets { get; set; }
         public List<Message>? Messages { get; set; }
         public List<Notification>? Notifications { get; set; }
+        public List<UserTweetAction>? UserTweetActions { get; set; }
     }
 }
