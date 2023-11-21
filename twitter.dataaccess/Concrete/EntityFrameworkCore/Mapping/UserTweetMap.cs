@@ -4,11 +4,11 @@ using twitter.entities.Concrete;
 
 namespace twitter.dataaccess.Concrete.EntityFrameworkCore.Mapping
 {
-    public class TweetHashtagMap : IEntityTypeConfiguration<TweetHashtag>
+    public class UserTweetMap : IEntityTypeConfiguration<UserTweet>
     {
-        public void Configure(EntityTypeBuilder<TweetHashtag> builder)
+        public void Configure(EntityTypeBuilder<UserTweet> builder)
         {
-            builder.HasKey(I => I.Id).HasName("PK_TweetHashtag_Id");
+            builder.HasKey(I => I.Id).HasName("PK_UserTweet_Id");
             builder.Property(I => I.Id).UseIdentityColumn(1, 1);
         }
     }

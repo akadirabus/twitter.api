@@ -4,14 +4,13 @@ using twitter.entities.Concrete;
 
 namespace twitter.dataaccess.Concrete.EntityFrameworkCore.Mapping
 {
-    public class NotificationMap : IEntityTypeConfiguration<Notification>
+    public class UserRelationMap : IEntityTypeConfiguration<UserRelation>
     {
-        public void Configure(EntityTypeBuilder<Notification> builder)
+        public void Configure(EntityTypeBuilder<UserRelation> builder)
         {
-            builder.HasKey(I => I.Id).HasName("PK_Notification_Id");
+            builder.HasKey(I => I.Id).HasName("PK_Follow_Id");
             builder.Property(I => I.Id).UseIdentityColumn(1, 1);
             builder.Property(I => I.RecordTime).HasColumnType("datetime").HasDefaultValueSql("GETDATE()");
-            builder.Property(I => I.Content).HasMaxLength(255).IsRequired();
         }
     }
 }
