@@ -5,7 +5,7 @@ using twitter.entities.Concrete;
 
 namespace twitter.api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class TweetController : ControllerBase
     {
@@ -21,6 +21,13 @@ namespace twitter.api.Controllers
         public async Task<List<Tweet>> List()
         {
             return await _genericDal.GetAllAsync();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(Tweet tweet)
+        {
+            await _genericDal.AddAsync(tweet);
+            return Created("", tweet);
         }
     }
 }

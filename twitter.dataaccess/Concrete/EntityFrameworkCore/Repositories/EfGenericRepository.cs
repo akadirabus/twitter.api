@@ -7,6 +7,13 @@ namespace twitter.dataaccess.Concrete.EntityFrameworkCore.Repositories
 {
     public class EfGenericRepository<TEntity> : IGenericDal<TEntity> where TEntity : class, ITable, new()
     {
+        public async Task AddAsync(TEntity entity)
+        {
+            using var context = new TwitterContext();
+            await context.AddAsync(entity);
+            await context.SaveChangesAsync();
+        }
+
         public async Task<List<TEntity>> GetAllAsync()
         {
             using var context = new TwitterContext();

@@ -8,7 +8,7 @@ namespace twitter.entities.Concrete
         public DateTime RecordTime { get; set; }
         public string Content { get; set; }
 
-        public long UserId { get; set; }
-        public User User { get; set; }
+        public long? UserId { get; set; }
+        public User? User { get; set; }
     }
 }

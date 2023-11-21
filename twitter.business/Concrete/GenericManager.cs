@@ -12,6 +12,11 @@ namespace twitter.business.Concrete
             _genericDal = genericDal;
         }
 
+        public async Task AddAsync(TEntity entity)
+        {
+            await _genericDal.AddAsync(entity);
+        }
+
         public async Task<List<TEntity>> GetAllAsync()
         {
             return await _genericDal.GetAllAsync();

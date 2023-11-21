@@ -9,7 +9,7 @@ namespace twitter.entities.Concrete
         public string Content { get; set; }
         public int MessageType { get; set; }
 
-        public long UserId { get; set; }
-        public User User { get; set; }
+        public long? UserId { get; set; }
+        public User? User { get; set; }
     }
 }

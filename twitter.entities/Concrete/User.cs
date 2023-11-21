@@ -12,10 +12,10 @@ namespace twitter.entities.Concrete
         public string Location { get; set; }
         public DateTime BirthDate { get; set; }
 
-        public List<UserRelation> UserRelations { get; set; }
-        public List<UserTweet> UserTweets { get; set; }
-        public List<Tweet> Tweets { get; set; }
-        public List<Message> Messages { get; set; }
-        public List<Notification> Notifications { get; set; }
+        public List<UserRelation>? UserRelations { get; set; }
+        public List<UserTweet>? UserTweets { get; set; }
+        public List<Tweet>? Tweets { get; set; }
+        public List<Message>? Messages { get; set; }
+        public List<Notification>? Notifications { get; set; }
     }
 }
