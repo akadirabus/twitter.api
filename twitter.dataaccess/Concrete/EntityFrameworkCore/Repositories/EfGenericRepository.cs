@@ -1,0 +1,17 @@
+﻿using Microsoft.EntityFrameworkCore;
+using twitter.dataaccess.Concrete.EntityFrameworkCore.Context;
+using twitter.dataaccess.Interfaces;
+using twitter.entities.Interfaces;
+
+namespace twitter.dataaccess.Concrete.EntityFrameworkCore.Repositories
+{
+    public class EfGenericRepository<TEntity> : IGenericDal<TEntity> where TEntity : class, ITable, new()
+    {
+        public async Task<List<TEntity>> GetAllAsync()
+        {
+            using var context = new TwitterContext();
+
+            return await context.Set<TEntity>().ToListAsync();
+        }
+    }
+}

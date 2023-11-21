@@ -12,10 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\twitter.business\twitter.business.csproj" />
     <ProjectReference Include="..\twitter.dto\twitter.dto.csproj" />
   </ItemGroup>
