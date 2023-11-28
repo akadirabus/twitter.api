@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using twitter.dataaccess.Interfaces;
+using twitter.business.Interfaces;
+using twitter.dto.Concrete.TweetDtos;
 using twitter.entities.Concrete;
 
 namespace twitter.api.Controllers
@@ -9,25 +10,25 @@ namespace twitter.api.Controllers
     [ApiController]
     public class TweetController : ControllerBase
     {
-        private readonly IGenericDal<Tweet> _genericDal;
-        private readonly ITweetDal _tweetDal;
-        public TweetController(IGenericDal<Tweet> genericDal, ITweetDal tweetDal)
+        private readonly ITweetService _tweetService;
+        private readonly IMapper _mapper;
+        public TweetController(ITweetService tweetService, IMapper mapper)
         {
-            _genericDal = genericDal; 
-            _tweetDal = tweetDal;
+            _tweetService = tweetService;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<List<Tweet>> List()
+        public async Task<List<TweetListDto>> List()
         {
-            return await _genericDal.GetAllAsync();
+            return _mapper.Map<List<TweetListDto>>(await _tweetService.GetAllAsync());
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(Tweet tweet)
+        public async Task<IActionResult> Add(TweetAddDto tweetAddDto)
         {
-            await _genericDal.AddAsync(tweet);
-            return Created("", tweet);
+            await _tweetService.AddAsync(_mapper.Map<Tweet>(tweetAddDto));
+            return Created("", tweetAddDto);
         }
     }
 }

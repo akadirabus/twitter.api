@@ -1,8 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
 using twitter.business.Concrete;
 using twitter.business.Interfaces;
+using twitter.business.ValidationRules.FluentValidation;
 using twitter.dataaccess.Concrete.EntityFrameworkCore.Repositories;
 using twitter.dataaccess.Interfaces;
+using twitter.dto.Concrete.TweetDtos;
 
 namespace twitter.business.Containers.MicrosoftIoC
 {
@@ -15,6 +18,8 @@ namespace twitter.business.Containers.MicrosoftIoC
 
             services.AddScoped<ITweetService, TweetManager>();
             services.AddScoped<ITweetDal, EfTweetRepository>();
+
+            services.AddTransient<IValidator<TweetAddDto>, TweetAddValidator>();
         }
     }
 }
