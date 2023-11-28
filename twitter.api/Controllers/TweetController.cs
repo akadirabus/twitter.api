@@ -30,5 +30,12 @@ namespace twitter.api.Controllers
             await _tweetService.AddAsync(_mapper.Map<Tweet>(tweetAddDto));
             return Created("", tweetAddDto);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(TweetDeleteDto tweetDeleteDto)
+        {
+            await _tweetService.RemoveAsync(_mapper.Map<Tweet>(tweetDeleteDto));
+            return NoContent();
+        }
     }
 }

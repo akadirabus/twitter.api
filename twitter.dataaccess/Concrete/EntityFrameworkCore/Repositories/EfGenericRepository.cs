@@ -14,6 +14,13 @@ namespace twitter.dataaccess.Concrete.EntityFrameworkCore.Repositories
             await context.SaveChangesAsync();
         }
 
+        public async Task RemoveAsync(TEntity entity)
+        {
+            using var context = new TwitterContext();
+            context.Remove(entity);
+            await context.SaveChangesAsync();
+        }
+
         public async Task<List<TEntity>> ListAsync()
         {
             using var context = new TwitterContext();

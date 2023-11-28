@@ -21,5 +21,10 @@ namespace twitter.business.Concrete
         {
             return await _genericDal.ListAsync();
         }
+
+        public async Task RemoveAsync(TEntity entity)
+        {
+            await _genericDal.RemoveAsync(entity);
+        }
     }
 }

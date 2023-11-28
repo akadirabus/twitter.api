@@ -7,5 +7,6 @@ namespace twitter.business.Interfaces
     {
         Task<List<TEntity>> ListAsync();
         Task AddAsync(TEntity entity);
+        Task RemoveAsync(TEntity entity);
     }
 }
