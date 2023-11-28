@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using twitter.business.Interfaces;
+﻿using twitter.business.Interfaces;
 using twitter.dataaccess.Interfaces;
 using twitter.entities.Concrete;
 
@@ -17,6 +12,11 @@ namespace twitter.business.Concrete
         {
             _tweetDal = tweetDal;
             _genericDal = genericDal;
+        }
+
+        public Task<List<Tweet>> ListOrderByDateTimeDescAsync(long userId)
+        {
+            return _tweetDal.ListOrderByDateTimeDescAsync(userId);
         }
     }
 }

@@ -19,9 +19,9 @@ namespace twitter.api.Controllers
         }
 
         [HttpGet]
-        public async Task<List<TweetListDto>> List()
+        public async Task<List<TweetListDto>> ListOrderByDateTimeDescAsync(long userId)
         {
-            return _mapper.Map<List<TweetListDto>>(await _tweetService.GetAllAsync());
+            return _mapper.Map<List<TweetListDto>>(await _tweetService.ListOrderByDateTimeDescAsync(userId));
         }
 
         [HttpPost]

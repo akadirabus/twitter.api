@@ -14,7 +14,7 @@ namespace twitter.dataaccess.Concrete.EntityFrameworkCore.Repositories
             await context.SaveChangesAsync();
         }
 
-        public async Task<List<TEntity>> GetAllAsync()
+        public async Task<List<TEntity>> ListAsync()
         {
             using var context = new TwitterContext();
 

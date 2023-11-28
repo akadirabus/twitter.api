@@ -4,7 +4,7 @@ namespace twitter.dataaccess.Interfaces
 {
     public interface IGenericDal<TEntity> where TEntity: class, ITable, new()
     {
-        Task<List<TEntity>> GetAllAsync();
+        Task<List<TEntity>> ListAsync();
         Task AddAsync(TEntity entity);
     }
 }
