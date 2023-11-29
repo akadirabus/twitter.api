@@ -1,4 +1,5 @@
-﻿using twitter.business.Interfaces;
+﻿using System.Linq.Expressions;
+using twitter.business.Interfaces;
 using twitter.dataaccess.Interfaces;
 using twitter.entities.Interfaces;
 
@@ -15,6 +16,11 @@ namespace twitter.business.Concrete
         public async Task AddAsync(TEntity entity)
         {
             await _genericDal.AddAsync(entity);
+        }
+
+        public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> filter)
+        {
+            return await _genericDal.GetAsync(filter);
         }
 
         public async Task<List<TEntity>> ListAsync()

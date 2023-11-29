@@ -24,6 +24,12 @@ namespace twitter.api.Controllers
             return _mapper.Map<List<TweetListDto>>(await _tweetService.ListOrderByDateTimeDescAsync(userId));
         }
 
+        [HttpGet]
+        public async Task<TweetListDto> Get(long id)
+        {
+            return _mapper.Map<TweetListDto>(await _tweetService.GetAsync(tweet => tweet.Id == id));
+        }
+
         [HttpPost]
         public async Task<IActionResult> Add(TweetAddDto tweetAddDto)
         {

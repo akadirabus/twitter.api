@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 using twitter.dataaccess.Concrete.EntityFrameworkCore.Context;
 using twitter.dataaccess.Interfaces;
 using twitter.entities.Interfaces;
@@ -26,6 +27,12 @@ namespace twitter.dataaccess.Concrete.EntityFrameworkCore.Repositories
             using var context = new TwitterContext();
 
             return await context.Set<TEntity>().ToListAsync();
+        }
+        
+        public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> filter)
+        {
+            using var context = new TwitterContext();
+            return await context.Set<TEntity>().FirstOrDefaultAsync(filter);
         }
     }
 }
