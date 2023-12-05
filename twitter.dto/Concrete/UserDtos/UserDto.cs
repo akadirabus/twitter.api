@@ -2,7 +2,7 @@
 
 namespace twitter.dto.Concrete.UserDtos
 {
-    public class UserListDto : IDto
+    public class UserDto : IDto
     {
         public long Id { get; set; }
         public DateTime RecordTime { get; set; }

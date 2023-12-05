@@ -19,9 +19,15 @@ namespace twitter.api.Controllers
         }
 
         [HttpGet]
-        public async Task<List<UserListDto>> List()
+        public async Task<List<UserDto>> List()
         {
-            return _mapper.Map<List<UserListDto>>(await _userService.ListAsync());
+            return _mapper.Map<List<UserDto>>(await _userService.ListAsync());
+        }
+
+        [HttpGet]
+        public async Task<UserDto> Get(long userId)
+        {
+            return _mapper.Map<UserDto>(await _userService.GetAsync(I => I.Id == userId));
         }
     }
 }
