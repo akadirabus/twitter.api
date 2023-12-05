@@ -17,6 +17,10 @@ namespace twitter.api.Mapping.AutoMapperProfile
 
             CreateMap<HashtagListDto, Hashtag>();
             CreateMap<Hashtag, HashtagListDto>();
+
+
+            CreateMap<HashtagListTrendTopic, Hashtag>();
+            CreateMap<Hashtag, HashtagListTrendTopic>();
         }
     }
 }

@@ -22,5 +22,11 @@ namespace twitter.api.Controllers
         {
             return _mapper.Map<List<HashtagListDto>>(await _hashtagService.ListAsync());
         }
+
+        [HttpGet]
+        public async Task<List<HashtagListTrendTopic>> ListTrendTopic()
+        {
+            return _mapper.Map<List<HashtagListTrendTopic>>(await _hashtagService.ListTrendTopic());
+        }
     }
 }

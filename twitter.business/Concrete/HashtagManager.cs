@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using twitter.business.Interfaces;
+﻿using twitter.business.Interfaces;
 using twitter.dataaccess.Interfaces;
 using twitter.entities.Concrete;
 
@@ -13,6 +12,11 @@ namespace twitter.business.Concrete
         {
             _hashtagDal = hashtagDal;
             _genericDal = genericDal;
+        }
+
+        public async Task<List<Hashtag>> ListTrendTopic()
+        {
+            return await _hashtagDal.ListTrendTopic();
         }
     }
 }

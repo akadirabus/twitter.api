@@ -7,6 +7,7 @@ namespace twitter.entities.Concrete
         public long Id { get; set; }
         public string Name { get; set; }
         public DateTime? RecordTime { get; set; }
+        public long TweetCount { get; set; }
         public List<TweetHashtag>? TweetHashtags { get; set; }
     }
 }
