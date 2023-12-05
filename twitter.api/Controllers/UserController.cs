@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using twitter.business.Interfaces;
-using twitter.dto.Concrete.HashtagDtos;
 using twitter.dto.Concrete.UserDtos;
+using twitter.entities.Concrete;
 
 namespace twitter.api.Controllers
 {
@@ -28,6 +28,13 @@ namespace twitter.api.Controllers
         public async Task<UserDto> Get(long userId)
         {
             return _mapper.Map<UserDto>(await _userService.GetAsync(I => I.Id == userId));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(UserUpdateDto userUpdateDto)
+        {
+            await _userService.UpdateAsync(_mapper.Map<User>(userUpdateDto));
+            return Ok(userUpdateDto);
         }
     }
 }

@@ -9,5 +9,6 @@ namespace twitter.dataaccess.Interfaces
         Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> filter);
         Task AddAsync(TEntity entity);
         Task RemoveAsync(TEntity entity);
+        Task UpdateAsync(TEntity entity);
     }
 }

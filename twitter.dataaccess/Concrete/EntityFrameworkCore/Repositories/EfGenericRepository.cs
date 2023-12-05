@@ -34,5 +34,11 @@ namespace twitter.dataaccess.Concrete.EntityFrameworkCore.Repositories
             using var context = new TwitterContext();
             return await context.Set<TEntity>().FirstOrDefaultAsync(filter);
         }
+        public async Task UpdateAsync(TEntity entity)
+        {
+            using var context = new TwitterContext();
+            context.Update(entity);
+            await context.SaveChangesAsync();
+        }
     }
 }

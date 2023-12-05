@@ -192,9 +192,7 @@ namespace twitter.dataaccess.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<DateTime>("RecordTime")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("UserName")
                         .IsRequired()

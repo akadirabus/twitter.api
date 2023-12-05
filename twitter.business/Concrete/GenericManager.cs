@@ -32,5 +32,10 @@ namespace twitter.business.Concrete
         {
             await _genericDal.RemoveAsync(entity);
         }
+
+        public async Task UpdateAsync(TEntity entity)
+        {
+            await _genericDal.UpdateAsync(entity);
+        }
     }
 }
