@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using twitter.dto.Concrete.HashtagDtos;
 using twitter.dto.Concrete.TweetDtos;
 using twitter.entities.Concrete;
 
@@ -13,6 +14,9 @@ namespace twitter.api.Mapping.AutoMapperProfile
 
             CreateMap<TweetListDto, Tweet>();
             CreateMap<Tweet, TweetListDto>();
+
+            CreateMap<HashtagListDto, Hashtag>();
+            CreateMap<Hashtag, HashtagListDto>();
         }
     }
 }
