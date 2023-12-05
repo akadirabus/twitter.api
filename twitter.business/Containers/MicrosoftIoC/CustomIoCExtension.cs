@@ -23,6 +23,9 @@ namespace twitter.business.Containers.MicrosoftIoC
             services.AddScoped<IHashtagService, HashtagManager>();
             services.AddScoped<IHashtagDal, EfHashtagRepository>();
 
+            services.AddScoped<IUserService, UserManager>();
+            services.AddScoped<IUserDal, EfUserRepository>();
+
             services.AddTransient<IValidator<TweetAddDto>, TweetAddValidator>();
         }
     }

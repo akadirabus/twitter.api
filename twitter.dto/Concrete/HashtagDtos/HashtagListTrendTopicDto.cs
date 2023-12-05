@@ -1,6 +1,6 @@
 ﻿namespace twitter.dto.Concrete.HashtagDtos
 {
-    public class HashtagListTrendTopic
+    public class HashtagListTrendTopicDto
     {
         public long Id { get; set; }
         public string Name { get; set; }
