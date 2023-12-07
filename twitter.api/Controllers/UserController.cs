@@ -30,6 +30,13 @@ namespace twitter.api.Controllers
             return _mapper.Map<UserDto>(await _userService.GetAsync(I => I.Id == userId));
         }
 
+        [HttpGet]
+        public async Task<List<UserFollowerDto>> FollowerList(long userId)
+        {
+            var x = await _userService.FollowerListAsync(userId);
+            return _mapper.Map<List<UserFollowerDto>>(x);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Update(UserUpdateDto userUpdateDto)
         {

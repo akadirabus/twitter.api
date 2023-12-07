@@ -13,5 +13,10 @@ namespace twitter.business.Concrete
             _userDal = userDal;
             _genericDal = genericDal;
         }
+
+        public async Task<List<User>> FollowerListAsync(long userId)
+        {
+            return await _userDal.FollowerListAsync(userId);
+        }
     }
 }
