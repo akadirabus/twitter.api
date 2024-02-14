@@ -14,9 +14,9 @@ namespace twitter.business.Concrete
             _genericDal = genericDal;
         }
 
-        public async Task<List<Hashtag>> ListTrendTopic()
+        public async Task<List<Hashtag>> ListTrendTopic(int hashtagCount = 10)
         {
-            return await _hashtagDal.ListTrendTopic();
+            return await _hashtagDal.ListTrendTopic(hashtagCount);
         }
     }
 }

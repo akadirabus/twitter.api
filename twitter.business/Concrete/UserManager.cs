@@ -18,5 +18,10 @@ namespace twitter.business.Concrete
         {
             return await _userDal.FollowerListAsync(userId);
         }
+
+        public async Task<List<User>> FollowingListAsync(long userId)
+        {
+            return await _userDal.FollowingListAsync(userId);
+        }
     }
 }

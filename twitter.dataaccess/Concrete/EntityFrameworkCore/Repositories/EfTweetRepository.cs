@@ -22,7 +22,9 @@ namespace twitter.dataaccess.Concrete.EntityFrameworkCore.Repositories
                 Content = I.tweet.Content,
                 Id = I.tweet.Id,
                 TweetType = I.tweet.TweetType,
-                User = I.tweet.User
+                User = new User {
+                    Id = I.tweet.User.Id
+                }
             })
             .OrderByDescending(I => I.RecordTime)
             .ToListAsync();

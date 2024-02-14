@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\twitter.dto\twitter.dto.csproj" />
     <ProjectReference Include="..\twitter.entities\twitter.entities.csproj" />
   </ItemGroup>
 

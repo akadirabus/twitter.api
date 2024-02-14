@@ -4,6 +4,6 @@ namespace twitter.dataaccess.Interfaces
 {
     public interface IHashtagDal : IGenericDal<Hashtag>
     {
-        Task<List<Hashtag>> ListTrendTopic();
+        Task<List<Hashtag>> ListTrendTopic(int hashtagCount);
     }
 }

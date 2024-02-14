@@ -4,6 +4,6 @@ namespace twitter.business.Interfaces
 {
     public interface IHashtagService : IGenericService<Hashtag>
     {
-        Task<List<Hashtag>> ListTrendTopic();
+        Task<List<Hashtag>> ListTrendTopic(int hashtagCount = 10);
     }
 }

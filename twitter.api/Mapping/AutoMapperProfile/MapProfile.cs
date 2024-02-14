@@ -30,6 +30,9 @@ namespace twitter.api.Mapping.AutoMapperProfile
 
             CreateMap<UserFollowerDto, User>();
             CreateMap<User, UserFollowerDto>();
+
+            CreateMap<UserFollowingDto, User>();
+            CreateMap<User, UserFollowingDto>();
         }
     }
 }
