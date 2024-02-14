@@ -7,7 +7,7 @@ namespace twitter.dataaccess.Concrete.EntityFrameworkCore.Repositories
 {
     public class EfTweetRepository : EfGenericRepository<Tweet>, ITweetDal
     {
-        public async Task<List<Tweet>> ListOrderByDateTimeDescAsync(long userId)
+        public async Task<List<Tweet>> ListOrderByDateTimeDescAsync(long? userId)
         {
             using var context = new TwitterContext();
 
@@ -16,15 +16,14 @@ namespace twitter.dataaccess.Concrete.EntityFrameworkCore.Repositories
                 tweet,
                 tweetUser.NameSurname,
                 tweetUser.UserName
-            }).Where(I => I.tweet.UserId == userId).Select(I => new Tweet
-            {
+            })
+            .Where(I => (userId == null) || (I.tweet.UserId == userId))
+            .Select(I => new Tweet {
                 RecordTime = I.tweet.RecordTime,
                 Content = I.tweet.Content,
                 Id = I.tweet.Id,
                 TweetType = I.tweet.TweetType,
-                User = new User {
-                    Id = I.tweet.User.Id
-                }
+                User = I.tweet.User
             })
             .OrderByDescending(I => I.RecordTime)
             .ToListAsync();
