@@ -19,7 +19,7 @@ namespace twitter.dataaccess.Concrete.EntityFrameworkCore.Context
             modelBuilder.ApplyConfiguration(new TweetMap());
             modelBuilder.ApplyConfiguration(new UserMap());
             modelBuilder.ApplyConfiguration(new UserRelationMap());
-            modelBuilder.ApplyConfiguration(new UserTweetActionMap());
+            modelBuilder.ApplyConfiguration(new TweetUserMap());
         }
 
         public DbSet<Hashtag> Hashtag { get; set; }
@@ -29,8 +29,6 @@ namespace twitter.dataaccess.Concrete.EntityFrameworkCore.Context
         public DbSet<Tweet> Tweet { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<UserRelation> UserRelation { get; set; }
-        public DbSet<UserTweetAction> UserTweetAction { get; set; }
-        public DbSet<DefTweetType> DefTweetType { get; set; }
-        public DbSet<DefActionType> DefActionType { get; set; }
+        public DbSet<TweetUser> TweetUser { get; set; }
     }
 }

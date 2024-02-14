@@ -23,7 +23,6 @@ namespace twitter.dataaccess.Concrete.EntityFrameworkCore.Repositories
                 RecordTime = I.tweet.RecordTime,
                 Content = I.tweet.Content,
                 Id = I.tweet.Id,
-                TweetType = I.tweet.TweetType,
                 User = I.tweet.User
             })
             .FirstOrDefaultAsync();
@@ -44,7 +43,6 @@ namespace twitter.dataaccess.Concrete.EntityFrameworkCore.Repositories
                 RecordTime = I.tweet.RecordTime,
                 Content = I.tweet.Content,
                 Id = I.tweet.Id,
-                TweetType = I.tweet.TweetType,
                 User = I.tweet.User
             })
             .OrderByDescending(I => I.RecordTime)

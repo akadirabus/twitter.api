@@ -6,5 +6,7 @@ namespace twitter.entities.Concrete
     {
         public short Id { get; set; }
         public string Name { get; set; }
+
+        public List<Tweet> Tweets { get; set; }
     }
 }

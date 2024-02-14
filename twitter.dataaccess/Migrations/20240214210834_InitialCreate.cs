@@ -12,13 +12,40 @@ namespace twitter.dataaccess.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "DefActionType",
+                columns: table => new
+                {
+                    Id = table.Column<short>(type: "smallint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DefActionType", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DefTweetType",
+                columns: table => new
+                {
+                    Id = table.Column<short>(type: "smallint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DefTweetType", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Hashtag",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    RecordTime = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "GETDATE()")
+                    RecordTime = table.Column<DateTime>(type: "datetime", nullable: true, defaultValueSql: "GETDATE()"),
+                    TweetCount = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -52,7 +79,7 @@ namespace twitter.dataaccess.Migrations
                     RecordTime = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "GETDATE()"),
                     Content = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: false),
                     MessageType = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<long>(type: "bigint", nullable: false)
+                    UserId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -61,8 +88,7 @@ namespace twitter.dataaccess.Migrations
                         name: "FK_Message_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -73,7 +99,7 @@ namespace twitter.dataaccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RecordTime = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "GETDATE()"),
                     Content = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    UserId = table.Column<long>(type: "bigint", nullable: false)
+                    UserId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -82,8 +108,7 @@ namespace twitter.dataaccess.Migrations
                         name: "FK_Notification_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -94,18 +119,22 @@ namespace twitter.dataaccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RecordTime = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "GETDATE()"),
                     Content = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
-                    TweetType = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<long>(type: "bigint", nullable: false)
+                    UserId = table.Column<long>(type: "bigint", nullable: true),
+                    DefTweetTypeId = table.Column<short>(type: "smallint", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tweet_Id", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Tweet_DefTweetType_DefTweetTypeId",
+                        column: x => x.DefTweetTypeId,
+                        principalTable: "DefTweetType",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Tweet_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -156,29 +185,35 @@ namespace twitter.dataaccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserTweet",
+                name: "TweetUser",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TweetId = table.Column<long>(type: "bigint", nullable: false),
-                    UserId = table.Column<long>(type: "bigint", nullable: false)
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    DefActionTypeId = table.Column<short>(type: "smallint", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserTweet_Id", x => x.Id);
+                    table.PrimaryKey("PK_TweetUser_Id", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserTweet_Tweet_TweetId",
+                        name: "FK_TweetUser_DefActionType_DefActionTypeId",
+                        column: x => x.DefActionTypeId,
+                        principalTable: "DefActionType",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_TweetUser_Tweet_TweetId",
                         column: x => x.TweetId,
                         principalTable: "Tweet",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserTweet_User_UserId",
+                        name: "FK_TweetUser_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -190,6 +225,11 @@ namespace twitter.dataaccess.Migrations
                 name: "IX_Notification_UserId",
                 table: "Notification",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tweet_DefTweetTypeId",
+                table: "Tweet",
+                column: "DefTweetTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tweet_UserId",
@@ -207,18 +247,23 @@ namespace twitter.dataaccess.Migrations
                 column: "TweetId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserRelation_UserId",
-                table: "UserRelation",
-                column: "UserId");
+                name: "IX_TweetUser_DefActionTypeId",
+                table: "TweetUser",
+                column: "DefActionTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserTweet_TweetId",
-                table: "UserTweet",
+                name: "IX_TweetUser_TweetId",
+                table: "TweetUser",
                 column: "TweetId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserTweet_UserId",
-                table: "UserTweet",
+                name: "IX_TweetUser_UserId",
+                table: "TweetUser",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserRelation_UserId",
+                table: "UserRelation",
                 column: "UserId");
         }
 
@@ -235,16 +280,22 @@ namespace twitter.dataaccess.Migrations
                 name: "TweetHashtag");
 
             migrationBuilder.DropTable(
-                name: "UserRelation");
+                name: "TweetUser");
 
             migrationBuilder.DropTable(
-                name: "UserTweet");
+                name: "UserRelation");
 
             migrationBuilder.DropTable(
                 name: "Hashtag");
 
             migrationBuilder.DropTable(
+                name: "DefActionType");
+
+            migrationBuilder.DropTable(
                 name: "Tweet");
+
+            migrationBuilder.DropTable(
+                name: "DefTweetType");
 
             migrationBuilder.DropTable(
                 name: "User");

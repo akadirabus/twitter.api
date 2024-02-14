@@ -12,8 +12,8 @@ using twitter.dataaccess.Concrete.EntityFrameworkCore.Context;
 namespace twitter.dataaccess.Migrations
 {
     [DbContext(typeof(TwitterContext))]
-    [Migration("20231121190945_UserTweetAddColumnType")]
-    partial class UserTweetAddColumnType
+    [Migration("20240214210834_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,40 @@ namespace twitter.dataaccess.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("twitter.entities.Concrete.DefActionType", b =>
+                {
+                    b.Property<short>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DefActionType");
+                });
+
+            modelBuilder.Entity("twitter.entities.Concrete.DefTweetType", b =>
+                {
+                    b.Property<short>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DefTweetType");
+                });
 
             modelBuilder.Entity("twitter.entities.Concrete.Hashtag", b =>
                 {
@@ -38,10 +72,13 @@ namespace twitter.dataaccess.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<DateTime>("RecordTime")
+                    b.Property<DateTime?>("RecordTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
                         .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<long>("TweetCount")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id")
                         .HasName("PK_Hashtag_Id");
@@ -70,7 +107,7 @@ namespace twitter.dataaccess.Migrations
                         .HasColumnType("datetime")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<long>("UserId")
+                    b.Property<long?>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id")
@@ -99,7 +136,7 @@ namespace twitter.dataaccess.Migrations
                         .HasColumnType("datetime")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<long>("UserId")
+                    b.Property<long?>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id")
@@ -123,19 +160,21 @@ namespace twitter.dataaccess.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
+                    b.Property<short?>("DefTweetTypeId")
+                        .HasColumnType("smallint");
+
                     b.Property<DateTime>("RecordTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<int>("TweetType")
-                        .HasColumnType("int");
-
-                    b.Property<long>("UserId")
+                    b.Property<long?>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id")
                         .HasName("PK_Tweet_Id");
+
+                    b.HasIndex("DefTweetTypeId");
 
                     b.HasIndex("UserId");
 
@@ -163,6 +202,35 @@ namespace twitter.dataaccess.Migrations
                     b.HasIndex("TweetId");
 
                     b.ToTable("TweetHashtag");
+                });
+
+            modelBuilder.Entity("twitter.entities.Concrete.TweetUser", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<short?>("DefActionTypeId")
+                        .HasColumnType("smallint");
+
+                    b.Property<long>("TweetId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id")
+                        .HasName("PK_TweetUser_Id");
+
+                    b.HasIndex("DefActionTypeId");
+
+                    b.HasIndex("TweetId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TweetUser");
                 });
 
             modelBuilder.Entity("twitter.entities.Concrete.User", b =>
@@ -234,40 +302,11 @@ namespace twitter.dataaccess.Migrations
                     b.ToTable("UserRelation");
                 });
 
-            modelBuilder.Entity("twitter.entities.Concrete.UserTweet", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("TweetId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id")
-                        .HasName("PK_UserTweet_Id");
-
-                    b.HasIndex("TweetId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserTweet");
-                });
-
             modelBuilder.Entity("twitter.entities.Concrete.Message", b =>
                 {
                     b.HasOne("twitter.entities.Concrete.User", "User")
                         .WithMany("Messages")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
@@ -276,20 +315,22 @@ namespace twitter.dataaccess.Migrations
                 {
                     b.HasOne("twitter.entities.Concrete.User", "User")
                         .WithMany("Notifications")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("twitter.entities.Concrete.Tweet", b =>
                 {
+                    b.HasOne("twitter.entities.Concrete.DefTweetType", "DefTweetType")
+                        .WithMany("Tweets")
+                        .HasForeignKey("DefTweetTypeId");
+
                     b.HasOne("twitter.entities.Concrete.User", "User")
                         .WithMany("Tweets")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("DefTweetType");
 
                     b.Navigation("User");
                 });
@@ -313,6 +354,31 @@ namespace twitter.dataaccess.Migrations
                     b.Navigation("Tweet");
                 });
 
+            modelBuilder.Entity("twitter.entities.Concrete.TweetUser", b =>
+                {
+                    b.HasOne("twitter.entities.Concrete.DefActionType", "DefActionType")
+                        .WithMany("TweetUsers")
+                        .HasForeignKey("DefActionTypeId");
+
+                    b.HasOne("twitter.entities.Concrete.Tweet", "Tweet")
+                        .WithMany("TweetUsers")
+                        .HasForeignKey("TweetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("twitter.entities.Concrete.User", "User")
+                        .WithMany("TweetUsers")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DefActionType");
+
+                    b.Navigation("Tweet");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("twitter.entities.Concrete.UserRelation", b =>
                 {
                     b.HasOne("twitter.entities.Concrete.User", "User")
@@ -324,23 +390,14 @@ namespace twitter.dataaccess.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("twitter.entities.Concrete.UserTweet", b =>
+            modelBuilder.Entity("twitter.entities.Concrete.DefActionType", b =>
                 {
-                    b.HasOne("twitter.entities.Concrete.Tweet", "Tweet")
-                        .WithMany("UserTweets")
-                        .HasForeignKey("TweetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("TweetUsers");
+                });
 
-                    b.HasOne("twitter.entities.Concrete.User", "User")
-                        .WithMany("UserTweets")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Tweet");
-
-                    b.Navigation("User");
+            modelBuilder.Entity("twitter.entities.Concrete.DefTweetType", b =>
+                {
+                    b.Navigation("Tweets");
                 });
 
             modelBuilder.Entity("twitter.entities.Concrete.Hashtag", b =>
@@ -352,7 +409,7 @@ namespace twitter.dataaccess.Migrations
                 {
                     b.Navigation("TweetHashtags");
 
-                    b.Navigation("UserTweets");
+                    b.Navigation("TweetUsers");
                 });
 
             modelBuilder.Entity("twitter.entities.Concrete.User", b =>
@@ -361,11 +418,11 @@ namespace twitter.dataaccess.Migrations
 
                     b.Navigation("Notifications");
 
+                    b.Navigation("TweetUsers");
+
                     b.Navigation("Tweets");
 
                     b.Navigation("UserRelations");
-
-                    b.Navigation("UserTweets");
                 });
 #pragma warning restore 612, 618
         }

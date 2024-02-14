@@ -14,7 +14,8 @@ namespace twitter.dataaccess.Concrete.EntityFrameworkCore.Mapping
             builder.Property(I => I.Content).HasMaxLength(1000).IsRequired();
 
             builder.HasMany(I => I.TweetHashtags).WithOne(I => I.Tweet).HasForeignKey(I => I.TweetId);
-            builder.HasMany(I => I.UserTweetActions).WithOne(I => I.Tweet).HasForeignKey(I => I.TweetId);
+            builder.HasMany(I => I.TweetUsers).WithOne(I => I.Tweet).HasForeignKey(I => I.TweetId);
+            builder.HasOne(I => I.DefTweetType).WithMany(I => I.Tweets).HasForeignKey(I => I.DefTweetTypeId);
         }
     }
 }
