@@ -13,8 +13,8 @@ namespace twitter.dataaccess.Concrete.EntityFrameworkCore.Mapping
             builder.Property(I => I.RecordTime).HasColumnType("datetime").HasDefaultValueSql("GETDATE()");
             builder.Property(I => I.Content).HasMaxLength(1000).IsRequired();
 
-            builder.HasMany(I => I.UserTweets).WithOne(I => I.Tweet).HasForeignKey(I => I.TweetId);
             builder.HasMany(I => I.TweetHashtags).WithOne(I => I.Tweet).HasForeignKey(I => I.TweetId);
+            builder.HasMany(I => I.UserTweetActions).WithOne(I => I.Tweet).HasForeignKey(I => I.TweetId);
         }
     }
 }

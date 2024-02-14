@@ -21,7 +21,7 @@ namespace twitter.dataaccess.Concrete.EntityFrameworkCore.Mapping
             builder.HasMany(I => I.Tweets).WithOne(I => I.User).HasForeignKey(I => I.UserId);
             builder.HasMany(I => I.Notifications).WithOne(I => I.User).HasForeignKey(I => I.UserId);
             builder.HasMany(I => I.UserRelations).WithOne(I => I.User).HasForeignKey(I => I.UserId);
-            builder.HasMany(I => I.UserTweets).WithOne(I => I.User).HasForeignKey(I => I.UserId).OnDelete(DeleteBehavior.Restrict);
+            builder.HasMany(I => I.UserTweetActions).WithOne(I => I.User).HasForeignKey(I => I.UserId);
         }
     }
 }

@@ -10,8 +10,11 @@ namespace twitter.entities.Concrete
         public int TweetType { get; set; }
 
         public List<TweetHashtag>? TweetHashtags { get; set; }
-        public List<UserTweet>? UserTweets { get; set; }
+        public List<UserTweetAction>? UserTweetActions { get; set; }
         public long? UserId { get; set; }
         public User? User { get; set; }
+
+        public long? DefTweetTypeId { get; set; }
+        public DefTweetType? DefTweetType { get; set; }
     }
 }
