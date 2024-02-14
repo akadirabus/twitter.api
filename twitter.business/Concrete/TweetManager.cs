@@ -14,9 +14,14 @@ namespace twitter.business.Concrete
             _genericDal = genericDal;
         }
 
-        public Task<List<Tweet>> ListOrderByDateTimeDescAsync(long? userId)
+        public async Task<Tweet> GetWithUserAsync(long tweetId)
         {
-            return _tweetDal.ListOrderByDateTimeDescAsync(userId);
+            return await _tweetDal.GetWithUserAsync(tweetId);
+        }
+
+        public async Task<List<Tweet>> ListOrderByDateTimeDescAsync(long? userId)
+        {
+            return await _tweetDal.ListOrderByDateTimeDescAsync(userId);
         }
     }
 }

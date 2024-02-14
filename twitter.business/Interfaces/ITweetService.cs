@@ -5,5 +5,7 @@ namespace twitter.business.Interfaces
     public interface ITweetService : IGenericService<Tweet>
     {
         Task<List<Tweet>> ListOrderByDateTimeDescAsync(long? userId);
+
+        Task<Tweet> GetWithUserAsync(long tweetId);
     }
 }

@@ -25,9 +25,9 @@ namespace twitter.api.Controllers
         }
 
         [HttpGet]
-        public async Task<TweetListDto> Get(long id)
+        public async Task<TweetListDto> GetWithUser(long id)
         {
-            return _mapper.Map<TweetListDto>(await _tweetService.GetAsync(tweet => tweet.Id == id));
+            return _mapper.Map<TweetListDto>(await _tweetService.GetWithUserAsync(id));
         }
 
         [HttpPost]
